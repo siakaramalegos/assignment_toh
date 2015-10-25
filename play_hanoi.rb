@@ -21,6 +21,22 @@ class PlayHanoi
     puts "Thank you for playing Tower of Hanoi!  Be sure to rate us in the App Store!"
   end
 
+  def valid_move? user_move
+    from_tower = user_move[0]
+    to_tower = user_move[1]
+
+    if from_tower == to_tower || @towers[from_tower].empty?
+      false
+    elsif @towers[to_tower].empty?
+      true
+    elsif @towers[to_tower].last > @towers[from_tower].last
+      true
+    else
+      false
+    end
+
+  end
+
   def move user_move
     # assumes valid input entered (TODO: validate input)
 
@@ -31,9 +47,13 @@ class PlayHanoi
 
     # TODO: Validate that it's a valid move.
     # Perform move
-    @towers[to_tower] << @towers[from_tower].pop
+    if valid_move? user_move
+      @towers[to_tower] << @towers[from_tower].pop
+      render
+    else
+      puts "I'm sorry, that's not a valid move.  Try again."
+    end
 
-    render
     next_action
   end
 

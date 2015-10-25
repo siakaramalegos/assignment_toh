@@ -20,7 +20,7 @@ class PlayHanoi
         if @towers[tower][level_index].nil?
           level_string += ' ' * (@disks + 2)
         else
-          level_string += ' ' + 'o' * @towers[tower][level_index] + ' '
+          level_string += ' ' + ' ' * (@disks - @towers[tower][level_index]) + 'o' * @towers[tower][level_index] + ' '
         end
       end
 

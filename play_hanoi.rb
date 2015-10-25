@@ -13,8 +13,28 @@ class PlayHanoi
   end
 
   def render
-    # TODO:  make graphical version of this
-    puts @towers
+    # Towers and disks
+    @disks.times do |reverse_level|
+      level_index = @disks - reverse_level - 1
+      level_string = ''
+
+      @disks.times do |tower_minus_one|
+        tower = tower_minus_one + 1
+        if @towers[tower][level_index].nil?
+          level_string += ' ' * (@disks + 2)
+        else
+          level_string += ' ' + 'o' * @towers[tower][level_index] + ' '
+        end
+      end
+
+      puts level_string
+    end
+
+    # Tower labels
+    puts "-" * (@disks + 2) * @disks
+    labels = ''
+    @disks.times { |i| labels += "#{' ' * (@disks - 1)}#{i + 1}#{' ' * (@disks - 1)}"}
+    puts labels
   end
 
   def quit
@@ -34,7 +54,6 @@ class PlayHanoi
     else
       false
     end
-
   end
 
   def move user_move

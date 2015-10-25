@@ -3,10 +3,17 @@ class PlayHanoi
 
   def initialize disks = 3
     @disks = disks
+
+    # initializing an address hash for each disk.  Key is disk and value is an array of tower and level.
+    @locations = Hash.new
+    @disks.times do |i|
+      @locations[i + 1] = [1, @disks - i]
+    end
   end
 
   def render
-    puts "TODO board stuff"
+    # TODO:  make graphical version of this
+    puts @locations
   end
 
   def play

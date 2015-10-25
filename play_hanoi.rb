@@ -5,11 +5,8 @@ class PlayHanoi
     @disks = disks
 
     # initializing an address hash for each disk.  Key is disk and value is an array of tower and level.
-    @towers = Hash.new
-    @disks.times do |i|
-      @towers[i + 1] = []
-      @towers[1] << @disks - i
-    end
+    @towers = {1 => nil, 2 => [], 3 => []}
+    @towers[1] = Array.new(@disks) { |i| @disks - i }
   end
 
   def render
@@ -18,7 +15,7 @@ class PlayHanoi
       level_index = @disks - reverse_level - 1
       level_string = ''
 
-      @disks.times do |tower_minus_one|
+      3.times do |tower_minus_one|
         tower = tower_minus_one + 1
         if @towers[tower][level_index].nil?
           level_string += ' ' * (@disks + 2)
@@ -31,14 +28,18 @@ class PlayHanoi
     end
 
     # Tower labels
-    puts "-" * (@disks + 2) * @disks
+    puts "-" * (@disks + 2) * 3
     labels = ''
-    @disks.times { |i| labels += "#{' ' * (@disks - 1)}#{i + 1}#{' ' * (@disks - 1)}"}
+    3.times { |i| labels += "#{' ' * (@disks - 1)}#{i + 1}#{' ' * (@disks - 1)}"}
     puts labels
   end
 
   def quit
     puts "Thank you for playing Tower of Hanoi!  Be sure to rate us in the App Store!"
+  end
+
+  def user_won?
+    @towers[3] == Array.new(@disks) { |i| @disks - i }
   end
 
   def valid_move? user_move
@@ -69,11 +70,16 @@ class PlayHanoi
     if valid_move? user_move
       @towers[to_tower] << @towers[from_tower].pop
       render
+      if user_won?
+        puts "YOU WON!!"
+        quit
+      else
+        next_action
+      end
     else
       puts "I'm sorry, that's not a valid move.  Try again."
+      next_action
     end
-
-    next_action
   end
 
   def next_action

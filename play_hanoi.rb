@@ -5,15 +5,16 @@ class PlayHanoi
     @disks = disks
 
     # initializing an address hash for each disk.  Key is disk and value is an array of tower and level.
-    @locations = Hash.new
+    @towers = Hash.new
     @disks.times do |i|
-      @locations[i + 1] = [1, @disks - i]
+      @towers[i + 1] = []
+      @towers[1] << @disks - i
     end
   end
 
   def render
     # TODO:  make graphical version of this
-    puts @locations
+    puts @towers
   end
 
   def quit
@@ -21,8 +22,15 @@ class PlayHanoi
   end
 
   def move user_move
-    # assumes valid move entered (TODO: validate input)
-    puts user_move.to_s
+    # assumes valid input entered (TODO: validate input)
+
+    # What is the move and repeat it back to user
+    from_tower = user_move[0]
+    to_tower = user_move[1]
+    puts "Move disk from tower #{from_tower} to tower #{to_tower}"
+
+    # Validate that it's a valid move and perform move
+
     render
     next_action
   end
@@ -44,7 +52,7 @@ class PlayHanoi
     puts "***  Welcome to Tower of Hanoi!  ***"
     puts "************************************"
     puts "Instructions:"
-    puts "Enter where you'd like to move from and to in the format using integers separated by a comma.  For example:\n Enter move > 1,3\nEnter 'q' to quit. \n\nCurrent Board:"
+    puts "Enter which tower you'd like to move a disk from and then which tower to move that disk to in the format using integers separated by a comma.  For example:\n Enter move > 1,3\nEnter 'q' to quit. \n\nCurrent Board:"
 
     render
     next_action

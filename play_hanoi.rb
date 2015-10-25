@@ -27,9 +27,11 @@ class PlayHanoi
     # What is the move and repeat it back to user
     from_tower = user_move[0]
     to_tower = user_move[1]
-    puts "Move disk from tower #{from_tower} to tower #{to_tower}"
+    puts "Move disk from tower #{from_tower} to tower #{to_tower}."
 
-    # Validate that it's a valid move and perform move
+    # TODO: Validate that it's a valid move.
+    # Perform move
+    @towers[to_tower] << @towers[from_tower].pop
 
     render
     next_action

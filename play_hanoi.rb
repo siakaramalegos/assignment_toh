@@ -4,7 +4,7 @@ class PlayHanoi
   def initialize disks = 3
     @disks = disks
 
-    # initializing an address hash for each disk.  Key is disk and value is an array of tower and level.
+    # initializing an address hash for each disk.
     @towers = {1 => nil, 2 => [], 3 => []}
     @towers[1] = Array.new(@disks) { |i| @disks - i }
   end
